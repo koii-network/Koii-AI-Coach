@@ -62,7 +62,7 @@ minimum_stake_amount: 0.1
 
 ## Task Bounty Type ##
 # KOII or KPL
-task_type: "KPL"
+task_type: "KOII"
 
 ## Token Mint Address (ONLY for KPL tasks) ##
 # The Fire Token address is provided as an example.

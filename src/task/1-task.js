@@ -5,10 +5,8 @@ export async function task(roundNumber) {
   // Run your task and store the proofs to be submitted for auditing
   // The submission of the proofs is done in the submission function
   try {
-    const ollamaInitialized = await initializeOllama();
-    if (!ollamaInitialized){
-      throw new Error("Failed to initialize Ollama");
-    } 
+    await initializeOllama();
+
     try {
       const response = await ollama.chat({
         model: "llama3.2",

@@ -5,6 +5,7 @@ import { unzipFile } from "../utils/unzipFile.js";
 import { exec, spawn } from 'child_process';
 import { calculateFileHash } from "../utils/calculateHash.js";
 import { isAccessible } from "../utils/isAccessible.js";
+import readline from 'readline';
 import fs from 'fs'
 let ollamaBasePath;
 if (process.env.DEV_MODE === 'true') {
@@ -20,88 +21,90 @@ let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
 
 
 
-function executeRunCommand() {
-    const runCommand = `ollama run llama3.2`;
-    console.log(`Executing run command: ${runCommand}`);
-    return new Promise((resolve, reject) => {
-        const runProcess = spawn(runCommand, { cwd: ollamaUnzipPath, shell: true});
-
-        runProcess.stdout.on('data', (data) => {
-            console.log(`Run output: ${data}`);
-            resolve();
-        });
-
-        runProcess.stderr.on('data', (data) => {
-            console.error(`Run error: ${data}`);
-            reject(new Error(`Run process failed with error: ${data}`));
-        });
-
-        runProcess.on('close', (code) => {
-            console.log(`Run process exited with code ${code}`);
-            if (code !== 0) {
-                reject(new Error(`Run process exited with code ${code}`));
-            }
-        });
-    });
-}
-
-async function executeServeCommand() {
+async function runOllama() {
     const serveCommand = `ollama serve`;
     console.log(`Executing serve command: ${serveCommand}`);
-    let retryCount = 0;
-    const maxRetries = 3;
+    
     return new Promise((resolve, reject) => {
-        const serveProcess = spawn(serveCommand, { cwd: ollamaUnzipPath, shell: true });
-
-        serveProcess.stdout.on('data', (data) => {
-            console.log(`Serve output: ${data}`);
-            if (data.includes('Listening')) {
-                resolve(); 
-            }
-        });
-
-        serveProcess.stderr.on('data', (data) => {
-            console.error(`Serve error: ${data}`);
-            if (data.includes('Listening')) {
-                resolve(); 
-            }
-            if (data.includes('could not connect to') && retryCount < maxRetries) {
-                retryCount++;
-                console.log(`Retrying in 30 seconds... (Attempt ${retryCount} of ${maxRetries})`);
-                setTimeout(() => executeServeCommand().then(resolve).catch(reject), 30000);
-            } else {
-                reject(new Error(`Serve process failed with error: ${data}`));
-            }
-        });
-
-        serveProcess.on('close', (code) => {
-            console.log(`Serve process exited with code ${code}`);
-            if (code !== 0) {
-                if (retryCount < maxRetries) {
-                    retryCount++;
-                    console.log(`Retrying in 30 seconds... (Attempt ${retryCount} of ${maxRetries})`);
-                    setTimeout(() => executeServeCommand().then(resolve).catch(reject), 30000);
-                } else {
-                    reject(new Error(`Serve process exited with code ${code}`));
-                }
-            }
-        });
-    });
-}
-
-async function runOllama() {
-    try {
-        try{await executeServeCommand();}catch(e){console.log("Failed to start ollama server")}
-        console.log("Waiting Period for Serve");
-        await new Promise(resolve => setTimeout(resolve, 10000));
-        console.log("10 Sec Timeout End. Server Should be Started.");
-        try{executeRunCommand();}catch(e){console.log("Failed to start ollama run")}
+      const serveProcess = spawn(serveCommand, { cwd: ollamaUnzipPath, shell: true });
   
-    } catch (e) {
-        console.log("Failed to start");
-        console.error(e);
-    }
-}
+      serveProcess.stdout.on('data', (data) => {
+        const output = data.toString();
+        console.log(`Serve stdout: ${output}`);
+  
+        // 检测是否已有服务运行
+        if (output.includes('bind: Only one usage of each socket address')) {
+          console.log('Service already running, proceeding to next step.');
+          serveProcess.kill();
+          resolve(true);
+        }
+  
+        // 检测 runners 表示服务已启动
+        if (output.includes('runners')) {
+          console.log('Serve started successfully.');
+          resolve(true);
+        }
+      });
+  
+      serveProcess.stderr.on('data', (data) => {
+        const output = data.toString();
+        console.error(`Serve stderr: ${output}`);
+        if (output.includes('runners')) {
+            console.log('Serve started successfully.');
+            resolve(true);
+          }
+      
+        if (output.includes('bind: Only one usage of each socket address')) {
+          console.log('Port already in use, proceeding to next step.');
+          serveProcess.kill();
+          resolve(true);
+        } 
+      });
+  
+      serveProcess.on('close', (code) => {
+        if (code !== 0) {
+          reject(new Error(`ollama serve process exited with code ${code}`));
+        }
+      });
+    }).then(() => {
+      return new Promise((resolve, reject) => {
+        const runCommand = `ollama run llama3.2`;
+        console.log(`Executing run command: ${runCommand}`);
+        const runProcess = spawn('start', [runCommand], { cwd: ollamaUnzipPath, shell: true, stdio: 'pipe' });
+        runProcess.stdin.write('a\n');
+        runProcess.stdout.on('data', (data) => {
+          console.log('Received stdout data');
+          const output = data.toString();
+          console.log(`Run stdout: ${output}`);
+          if (output.includes('Send a message')) {
+            console.log('ollama run is ready for input.');
+            resolve(true);
+            rl.close(); 
+          }
+        });
+        
+        runProcess.stderr.on('data', (data) => {
+          console.log('Received stderr data');
+          const output = data.toString();
+          console.error(`Run stderr: ${output}`);
+          reject(new Error(output));
+        });
+        runProcess.on('close', (code) => {
+          if (code !== 0) {
+            reject(new Error(`ollama run process exited with code ${code}`));
+          }
+        });
+
+        // check if isAccessible every 5 seconds
+        const interval = setInterval(() => {
+          if (isAccessible()){
+            clearInterval(interval);
+            resolve(true);
+          }
+        }, 5000);
+      });
+    });
+  }
 async function initializeOllama(){
     if (await isAccessible()){  
         console.log("Ollama is already installed");
@@ -137,7 +140,7 @@ async function initializeOllama(){
         console.log('Ollama unzipped successfully.');
     } catch (error) {
         console.error('Error unzipping Ollama:', error);
-        return false;
+
     }
 
     // Run Ollama
@@ -147,7 +150,7 @@ async function initializeOllama(){
         console.log('Ollama started successfully.');
     } catch (error) {
         console.error('Error running Ollama:', error);
-        return false;
+
     }
 
 
