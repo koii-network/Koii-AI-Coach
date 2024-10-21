@@ -37,7 +37,7 @@
     "tail": "^2.2.6"
   },
   "devDependencies": {
-    "eslint": "8.4.1",
+    "eslint": "^9.13.0",
     "globals": "^15.9.0",
     "jest": "^29.7.0",
     "joi": "^17.9.2",

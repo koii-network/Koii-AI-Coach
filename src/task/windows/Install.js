@@ -108,7 +108,6 @@ async function runOllama() {
           if (output.includes('Send a message')) {
             console.log('ollama run is ready for input.');
             resolve(true);
-            rl.close(); 
           }
         });
         
