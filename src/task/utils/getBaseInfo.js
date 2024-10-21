@@ -26,8 +26,9 @@ export async function getStakingKeypair(){
     }
 }
 
-export async function getAccessLink(){
+export async function getAccessLink(nodeAddress){
     if (process.env.DEV_MODE === 'true') {
+
         return `http://localhost:3000`;
     }
     if (!nodeAddress){
