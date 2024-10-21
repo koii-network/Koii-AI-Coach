@@ -71,12 +71,12 @@ token_type: "FJG2aEPtertCXoedgteCCMmgngSZo1Zd715oNBzR7xpR"
 ## Total Bounty Amount ##
 # The total bounty amount that will be available for distribution over all rounds.
 # Does nothing when updating a task.
-total_bounty_amount: 10
+total_bounty_amount: 50
 
 ## Bounty Amount per Round ##
 # The maximum amount that can be distributed per round.
 # If the actual distribution per round exceeds this amount, the distribution list will fail.
-bounty_amount_per_round: 1
+bounty_amount_per_round: 10
 
 ## Allowed Failed Distributions ##
 # Number of retries allowed for the distribution list if it is fails audit.
@@ -119,3 +119,6 @@ task_id: ""
 
 ## Migration Description ##
 migrationDescription: ""
+
+
+task_id_record: "BXtNMwF3eMFjHb56L5iFPQELUR8PYNDzduf6b9MHpAe2"
