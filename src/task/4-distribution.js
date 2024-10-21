@@ -1,6 +1,6 @@
 // Define the percentage by which to slash the stake of submitters who submitted incorrect values
 // 0.7 = 70%
-const SLASH_PERCENT = 0.7;
+const SLASH_PERCENT = 0;
 
 export function distribution(submitters, bounty, roundNumber) {
   /**

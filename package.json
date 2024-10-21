@@ -7,7 +7,7 @@
   "scripts": {
     "test": "node tests/simulateTask.js",
     "jest-test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "prod-debug": "nodemon --ignore 'dist/*' tests/prod-debug.js",
     "webpack": "webpack",
     "webpack:test": "webpack --config tests/test.webpack.config.js",
@@ -18,21 +18,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@_koii/namespace-wrapper": "^1.0.13",
-    "@_koii/task-manager": "^0.0.24",
+    "@_koii/namespace-wrapper": "^1.0.14",
+    "@_koii/storage-task-sdk": "^1.2.7",
+    "@_koii/task-manager": "^0.0.29",
     "@_koii/web3.js": "^0.1.11",
     "@babel/preset-env": "^7.25.7",
     "axios": "^1.7.7",
     "babel-jest": "^29.7.0",
     "chalk": "^5.3.0",
     "cross-spawn": "^7.0.3",
+    "diskusage": "^1.2.0",
     "dotenv": "^16.3.0",
     "dotenv-webpack": "^8.1.0",
-    "nodemon": "^3.1.7",
-    "tail": "^2.2.6",
     "express": "^4.21.1",
     "node-stream-zip": "^1.15.0",
-    "ollama": "^0.5.9"
+    "nodemon": "^3.1.7",
+    "ollama": "^0.5.9",
+    "tail": "^2.2.6"
   },
   "devDependencies": {
     "eslint": "8.4.1",

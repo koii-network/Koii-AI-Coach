@@ -16,3 +16,4 @@ localKOIIDB.db
 metadata.json
 .npmrc
 Ollama
+task.log

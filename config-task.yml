@@ -5,10 +5,10 @@
 
 ## Task Name ##
 # Maximum 24 characters.
-task_name: "LLM V0.2.0"
+task_name: "LLM For Windows v0.5"
 
 ## Task Author ##
-author: "Koii"
+author: "Herman"
 
 # Task Description Markdown ##
 # If you specify a markdown file, the description field will be ignored.
@@ -17,7 +17,7 @@ markdownDescriptionPath: ""
 
 ## Task Description ##
 # Ignored if you specify a markdown file.
-description: "This task runs a local LLM model and allows you to ask questions to the model."
+description: "This task runs a local LLM model and allows you to ask questions to the model. This task requires 8GB of RAM and Windows 10 or 11."
 
 ## Repository URL ##
 # Must be public for whitelisted tasks.
@@ -25,10 +25,10 @@ repositoryUrl: "https://github.com/koii-network/task-template"
 
 ## Image URL ##
 # 230x86 pixels.
-imageUrl: "imageUrl"
+imageUrl: "https://bafybeieak7zp3rts5erqaft4opvaimukqinakzwrfonqy3mx6blnvpl6ye.ipfs.w3s.link/Re0.jpg"
 
 ## Info URL ##
-infoUrl: "infoUrl"
+infoUrl: "https://koii.network"
 
 ####################################### TASK CONFIGURATION ######################################
 
@@ -76,7 +76,7 @@ total_bounty_amount: 10
 ## Bounty Amount per Round ##
 # The maximum amount that can be distributed per round.
 # If the actual distribution per round exceeds this amount, the distribution list will fail.
-bounty_amount_per_round: 0.1
+bounty_amount_per_round: 1
 
 ## Allowed Failed Distributions ##
 # Number of retries allowed for the distribution list if it is fails audit.
@@ -93,6 +93,8 @@ space: 0.1
 ## Requirement Tags (Optional) ##
 # To add more global variables and task variables, please refer to the type, value, description format shown below.
 requirementsTags:
+  - type: ADDON
+    value: 'REQUIRE_INTERNET'
   - type: CPU
     value: "4-core"
   - type: RAM

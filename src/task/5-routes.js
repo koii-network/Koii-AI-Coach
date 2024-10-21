@@ -1,7 +1,6 @@
-import { namespaceWrapper } from "@_koii/namespace-wrapper";
+import { namespaceWrapper, app } from "@_koii/namespace-wrapper";
 import ollama from 'ollama';
-
-export function setupRoutes(app) {
+export function routes() {
   if (app) {
     app.get("/value", async (_req, res) => {
       const value = await namespaceWrapper.storeGet("value");
@@ -9,11 +8,11 @@ export function setupRoutes(app) {
       res.status(200).json({ value: value });
     });
     app.post('/ask-query', async (req, res) => {
-      const { query } = req.body;
+      const { model, query } = req.body;
 
       try {
         const response = await ollama.chat({
-          model: 'llama3.2',
+          model: model,
           messages: [{ role: 'user', content: query }],
         });
         console.log(response);
@@ -24,8 +23,12 @@ export function setupRoutes(app) {
       }
     });
     const PORT = 4629;
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
+    try{
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    }catch(e){
+      console.log("Failed to start server", e);
+    }
   }
 }
