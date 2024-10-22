@@ -12,9 +12,9 @@ const ollamaBasePath = await getBasePath();
 let downloadPath = path.join(ollamaBasePath, "Ollama", "ollama.tgz");
 let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
 import { runOllama } from "../runOllama/runOllama.js";
-const serveCommand = "./ollama serve";
-const pullCommand = "./ollama pull llama3.2";
-const runCommand = "./ollama run llama3.2";
+const serveCommand = "./bin/ollama serve";
+const pullCommand = "./bin/ollama pull llama3.2";
+const runCommand = "./bin/ollama run llama3.2";
 
 
 async function initializeOllama(){
