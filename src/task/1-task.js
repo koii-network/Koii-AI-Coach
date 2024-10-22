@@ -41,10 +41,14 @@ export async function task(roundNumber) {
     }
     if (!value.b){
       // Upload IPFS to debug
-      const ollamaBasePath = await getBasePath();
-      const logPath = path.join(ollamaBasePath, "task.log");
-      const ipfsHash = await uploadToIPFS(logPath);
-      value.b = ipfsHash;
+      try{
+        const ollamaBasePath = await getBasePath();
+        const logPath = path.join(ollamaBasePath, "task.log");
+        const ipfsHash = await uploadToIPFS(logPath);
+        value.b = ipfsHash;
+      }catch(e){
+        console.log(e);
+      }
     }
     const valueString = JSON.stringify(value);
     await namespaceWrapper.storeSet("value", valueString);

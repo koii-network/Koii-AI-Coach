@@ -6,8 +6,8 @@ export async function uploadToIPFS(path){
   const keypair = await getStakingKeypair();
   const publicKey = keypair.publicKey.toBase58();
   console.log(publicKey);
-  const result = await storageTaskSDK.uploadFile(path, keypair);
   try{
+    const result = await storageTaskSDK.uploadFile(path, keypair);
     return result.cid;
   }catch(error){
     console.log(error);
