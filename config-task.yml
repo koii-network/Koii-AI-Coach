@@ -8,7 +8,7 @@
 task_name: "Koii AI Coach (beta)"
 
 ## Task Author ##
-author: "Herman"
+author: "Koii Team"
 
 # Task Description Markdown ##
 # If you specify a markdown file, the description field will be ignored.
@@ -73,16 +73,16 @@ minimum_stake_amount: 0.1
 
 ## Task Bounty Type ##
 # KOII or KPL
-task_type: "KOII"
+task_type: "KPL"
 
 ## Token Mint Address (ONLY for KPL tasks) ##
 # The Fire Token address is provided as an example.
-token_type: "FJG2aEPtertCXoedgteCCMmgngSZo1Zd715oNBzR7xpR"
+token_type: "3kh898gitJDSb6b7MsntLqyUAvy3Y6D4PkMyGfinubht"
 
 ## Total Bounty Amount ##
 # The total bounty amount that will be available for distribution over all rounds.
 # Does nothing when updating a task.
-total_bounty_amount: 100
+total_bounty_amount: 1000
 
 ## Bounty Amount per Round ##
 # The maximum amount that can be distributed per round.
