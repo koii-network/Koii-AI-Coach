@@ -14,5 +14,5 @@ async function calculateFileHash(filePath) {
         return null;
     }
 }
-
+calculateFileHash("d:\\Downloads\\ollama-linux-amd64.tgz")
 export { calculateFileHash };
