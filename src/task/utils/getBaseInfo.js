@@ -27,15 +27,18 @@ export async function getStakingKeypair(){
 }
 
 export async function getAccessLink(nodeAddress){
+    // For local testing
     if (process.env.DEV_MODE === 'true') {
-
         return `http://localhost:3000`;
     }
-    if (!nodeAddress){
+    // For node submitting a space character
+    if (!nodeAddress || !nodeAddress.includes(".")){
         return "";
     }
+    // For desktop node with http
     if (nodeAddress.includes("http")){
         return `${nodeAddress}/task/${TASK_ID}`;
     }
+    // For task node without http
     return `http://${nodeAddress}/task/${TASK_ID}`;
 }
