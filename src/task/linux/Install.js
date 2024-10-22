@@ -47,17 +47,21 @@ async function initializeOllama(){
     }
     // Unzip Ollama
     if (await namespaceWrapper.storeGet("ollama_initialized") !== "true"){
-      try {
-          console.log('Unzipping Ollama...');
-          await unzipFile(downloadPath, ollamaUnzipPath);
-          console.log('Ollama unzipped successfully.');
-          await namespaceWrapper.storeSet("ollama_initialized", "true");
-      } catch (error) {
-          console.error('Error unzipping Ollama:', error);
+        try {
+            console.log('Unzipping Ollama...');
+            const result = await unzipFile(downloadPath, ollamaUnzipPath);
+            if (result){
+              console.log('Ollama unzipped successfully.');
+              await namespaceWrapper.storeSet("ollama_initialized", "true");
+            }else{
+              console.log("Failed to unzip Ollama");
+            }
+        } catch (error) {
+            console.error('Error unzipping Ollama:', error);
+        }
+      }else{
+        console.log("Ollama already unzipped");
       }
-    }else{
-      console.log("Ollama already unzipped");
-    }
     // Run Ollama
     try {
         console.log('Running Ollama...');

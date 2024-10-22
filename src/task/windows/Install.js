@@ -12,9 +12,9 @@ const ollamaBasePath = await getBasePath();
 let downloadPath = path.join(ollamaBasePath, "Ollama", "ollama.zip");
 let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
 import { runOllama } from "../runOllama/runOllama.js";
-const serveCommand = "./ollama.exe serve";
-const pullCommand = "./ollama.exe pull llama3.2";
-const runCommand = "./ollama.exe run llama3.2";
+const serveCommand = "ollama.exe serve";
+const pullCommand = "ollama.exe pull llama3.2";
+const runCommand = "ollama.exe run llama3.2";
 
 
 async function initializeOllama(){
@@ -49,9 +49,13 @@ async function initializeOllama(){
     if (await namespaceWrapper.storeGet("ollama_initialized") !== "true"){
       try {
           console.log('Unzipping Ollama...');
-          await unzipFile(downloadPath, ollamaUnzipPath);
-          console.log('Ollama unzipped successfully.');
-          await namespaceWrapper.storeSet("ollama_initialized", "true");
+          const result = await unzipFile(downloadPath, ollamaUnzipPath);
+          if (result){
+            console.log('Ollama unzipped successfully.');
+            await namespaceWrapper.storeSet("ollama_initialized", "true");
+          }else{
+            console.log("Failed to unzip Ollama");
+          }
       } catch (error) {
           console.error('Error unzipping Ollama:', error);
       }
