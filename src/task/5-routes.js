@@ -4,16 +4,20 @@ export function routes() {
   if (app) {
     app.get("/value", async (_req, res) => {
       const value = await namespaceWrapper.storeGet("value");
-      console.log("value", value);
-      res.status(200).json({ value: value });
+      if (value){
+        res.status(200).json({ value: value });
+      }else{
+        res.status(200).send({ value: "N/A" });
+      }
     });
     app.post('/ask-query', async (req, res) => {
-      const { model, query } = req.body;
+      const { model, messages, options } = req.body;
 
       try {
         const response = await ollama.chat({
           model: model,
-          messages: [{ role: 'user', content: query }],
+          messages: messages,
+          options: options
         });
         console.log(response);
         res.json({ reply: response.message.content });

@@ -13,8 +13,6 @@ let downloadPath = path.join(ollamaBasePath, "Ollama", "ollama.zip");
 let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
 import { runOllama } from "../runOllama/runOllama.js";
 const serveCommand = "ollama.exe serve";
-const pullCommand = "ollama.exe pull llama3.2";
-const runCommand = "ollama.exe run llama3.2";
 
 
 async function initializeOllama(){
@@ -65,7 +63,7 @@ async function initializeOllama(){
     // Run Ollama
     try {
         console.log('Running Ollama...');
-        await runOllama({ ollamaUnzipPath, serveCommand, pullCommand, runCommand });
+        await runOllama({ ollamaUnzipPath, serveCommand});
         console.log('Ollama started successfully.');
     } catch (error) {
         console.error('Error running Ollama:', error);

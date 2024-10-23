@@ -20,7 +20,7 @@ export async function task(roundNumber) {
     // Create a JSON object to store the value
     const value = {};
     try{
-      value.m = "llama3.2";
+      value.m = "koiiLlama";
       // Check RAM
       const totalMemory = os.totalmem();
       value.r = `${(totalMemory / 1024 / 1024 / 1024).toFixed(2)}`;
@@ -37,7 +37,7 @@ export async function task(roundNumber) {
     // Check the model accessibility
     try {
       const response = await ollama.chat({
-        model: "llama3.2",
+        model: "koiiLlama",
         messages: [{ role: "user", content: "Hello, how are you?" }],
       });
       value.b = response.message.content.substring(0, 3);
