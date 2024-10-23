@@ -22,13 +22,15 @@ export function routes() {
         res.status(500).send({ error: 'Error interacting with the model' });
       }
     });
-    const PORT = 4629;
-    try{
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      });
-    }catch(e){
-      console.log("Failed to start server", e);
+    if (process.env.DEV_MODE) {
+      const PORT = 4628;
+      try{
+        app.listen(PORT, () => {
+          console.log(`Server is running on port ${PORT}`);
+        });
+      } catch (e) {
+        console.log("Failed to start server", e);
+      }
     }
   }
 }
