@@ -21,11 +21,11 @@ description: ""
 
 ## Repository URL ##
 # Must be public for whitelisted tasks.
-repositoryUrl: "https://github.com/koii-network/task-template"
+repositoryUrl: "https://github.com/koii-network/Koii-AI-Coach"
 
 ## Image URL ##
 # 230x86 pixels.
-imageUrl: ""
+imageUrl: "https://bafybeibkgcniz6rtud3sklzfczyg4ks3drk53boltmtq47bk2jjowkf3ki.ipfs.w3s.link/AICoach.png"
 
 ## Info URL ##
 infoUrl: "https://x.com/al_from_koii/status/1848790702186238018"
@@ -88,7 +88,7 @@ allowed_failed_distributions: 3
 # Expected Task Data Size in MBs for the account size.
 # Minimums: 2 for whitelisted tasks, 1 for production, 0.1 for testing.
 # See https://www.koii.network/docs/develop/command-line-tool/create-task-cli/create-task#space for calculation details.
-space: 0.1
+space: 2
 
 ## Requirement Tags (Optional) ##
 # To add more global variables and task variables, please refer to the type, value, description format shown below.
@@ -115,10 +115,7 @@ environment: "PRODUCTION"
 #################################### FOR UPDATING TASKS ONLY ####################################
 
 ## Old Task ID ##
-task_id: ""
+task_id: "7ia22HzfZHPXh8kKwvcyEvHBEg1EaQvUJARUzejYbJQv"
 
 ## Migration Description ##
-migrationDescription: ""
-
-
-task_id_record: "7ia22HzfZHPXh8kKwvcyEvHBEg1EaQvUJARUzejYbJQv"
+migrationDescription: "Fix some bugs and update the task description"

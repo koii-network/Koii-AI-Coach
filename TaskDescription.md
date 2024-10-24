@@ -4,7 +4,7 @@ Run a local AI Agent on your machine to support other Koii VIP Task Agents.
 Other $VIP tasks need a genius AI to help the generate content. 
 
 
-Your machine will support other nodes with a super-computer for creativity., ensuring that they post reliable and relatable content as they embark on the mission of spreading Koii to the broader world.
+Your machine will support other nodes with a super-computer for creativity, ensuring that they post reliable and relatable content as they embark on the mission of spreading Koii to the broader world.
 
 
 Your node will receive a share of rewards from all other nodes that it helps, so the more compute capacity you can offer, the better your model can perform. 
