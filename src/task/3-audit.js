@@ -6,8 +6,10 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
    * Audit a submission
    * This function should return true if the submission is correct, false otherwise
    */
+
   const submissionJSON = JSON.parse(submission);
   const { m: model } = submissionJSON;
+
   console.log(`AUDIT SUBMISSION FOR ROUND ${roundNumber}`); 
   // First: Check if model is accessible
   const IPAddressArray = await getAddressArray();
@@ -22,11 +24,17 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
     headers: { 'Content-Type': 'application/json' }, 
     body: JSON.stringify({ model: model, query: query }) 
   });
-  // TODO: Check the views of the Tweets
-  if (response.ok){
+  try{
+    const data = await response.json();
+    const reply = data.reply;  
+    console.log(reply);
     return true;
+  } catch (error) {
+    return false;
   }
-  return false;
+  // TODO: Check the views of the Tweets
+
+
 }
 
 async function getAddressArray() {
