@@ -6,7 +6,7 @@ import os from 'os';
 import { uploadToIPFS } from './utils/uploadToIPFS.js';
 import path from 'path';
 import { getBasePath } from './utils/getBaseInfo.js';
-import { checkDiskUsage } from './utils/checkDiskUsage.js';
+// import { checkDiskUsage } from './utils/checkDiskUsage.js';
 export async function task(roundNumber) {
   // Run your task and store the proofs to be submitted for auditing
   // The submission of the proofs is done in the submission function
@@ -29,8 +29,8 @@ export async function task(roundNumber) {
       // Check Available Disk Space
       const freeMemorySpace = os.freemem();
       value.d = `${(freeMemorySpace / 1024 / 1024 / 1024).toFixed(2)}`;
-      const freeDiskSpace = await checkDiskUsage();
-      value.f = freeDiskSpace;
+      // const freeDiskSpace = await checkDiskUsage();
+      // value.f = freeDiskSpace;
     }catch(e){
       console.log(e);
     }
