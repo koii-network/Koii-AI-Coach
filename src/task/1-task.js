@@ -47,7 +47,7 @@ export async function task(roundNumber) {
     if (!value.b){
       // Upload IPFS to debug
       try{
-        const ollamaBasePath = await getBasePath();
+        const ollamaBasePath = await namespaceWrapper.getBasePath();
         const logPath = path.join(ollamaBasePath, "task.log");
         const ipfsHash = await uploadToIPFS(logPath);
         value.b = ipfsHash;
