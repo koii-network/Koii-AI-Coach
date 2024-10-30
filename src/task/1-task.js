@@ -1,6 +1,5 @@
 import { namespaceWrapper } from "@_koii/namespace-wrapper";
-import { initializeOllama as initializeOllamaWindows } from "./windows/Install.js";
-import { initializeOllama as initializeOllamaLinux } from "./linux/Install.js";
+
 import ollama from 'ollama';
 import os from 'os';
 import { uploadToIPFS } from './utils/uploadToIPFS.js';
@@ -11,11 +10,7 @@ export async function task(roundNumber) {
   // Run your task and store the proofs to be submitted for auditing
   // The submission of the proofs is done in the submission function
   try {
-    if (os.platform() === "win32"){
-      await initializeOllamaWindows();
-    }else{
-      await initializeOllamaLinux();
-    }
+
   
     // Create a JSON object to store the value
     const value = {};
