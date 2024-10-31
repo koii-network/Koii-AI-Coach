@@ -25,10 +25,11 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
     body: JSON.stringify({ model: model, query: query }) 
   });
   try{
-    const data = await response.json();
-    const reply = data.reply;  
-    console.log(reply);
-    return true;
+    const data = await response.json(); 
+    if (data.reply) {
+      return true;
+    }
+    return false;
   } catch (error) {
     return false;
   }
