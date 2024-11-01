@@ -19,6 +19,9 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
   const query = `Hey! How are you?`;
   const accessLink = await getAccessLink(nodeAddress);
   console.log("Access Link", accessLink);
+  if (!accessLink) {
+    return false;
+  }
   const response = await fetch(`${accessLink}/ask-query`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' }, 
