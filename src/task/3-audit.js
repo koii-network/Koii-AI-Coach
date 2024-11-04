@@ -47,7 +47,7 @@ async function getAddressArray() {
     const taskState = await namespaceWrapper.getTaskState();
     // console.log('TASK STATE', taskState);
     const nodeList = taskState.ip_address_list;
-    console.log('Node List', nodeList);
+    console.log('Node List Length During Audit', nodeList.length);
     return nodeList;
   } catch (e) {
     console.log('ERROR GETTING TASK STATE', e);
