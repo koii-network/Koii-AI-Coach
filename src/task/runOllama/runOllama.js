@@ -20,10 +20,16 @@ export async function runOllama({ollamaUnzipPath, serveCommand}) {
           serveProcess.kill();
           resolve(true);
         }
-  
+        
         // Check if the service is started
         if (output.includes('runners')) {
           console.log('Serve started successfully.');
+          resolve(true);
+        }
+
+        if (output.includes('already in use')){
+          console.log('Port already in use, proceeding to next step.');
+          serveProcess.kill();
           resolve(true);
         }
       });
@@ -40,6 +46,11 @@ export async function runOllama({ollamaUnzipPath, serveCommand}) {
           serveProcess.kill();
           resolve(true);
         } 
+        if (output.includes('already in use')){
+          console.log('Port already in use, proceeding to next step.');
+          serveProcess.kill();
+          resolve(true);
+        }
       });
       // Check if the process is closed
       serveProcess.on('close', (code) => {
