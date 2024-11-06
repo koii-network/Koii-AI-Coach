@@ -26,6 +26,28 @@ export function routes() {
         res.status(500).send({ error: 'Error interacting with the model' });
       }
     });
+
+
+    app.get('/check-status', async (req, res) => {
+      try {
+        const response = await ollama.chat({
+          model: "koiiLlama",
+          messages: [{"role":"user", "content":"Please generate a question"}],
+          options: {num_predict:5, temperature:1}
+        })
+        if (response.message){
+          res.json({status: "OK"});
+        }else{
+          res.json({ status: "FAILED" });
+        }
+      } catch (error) {
+        console.log(error);
+        res.status(500).send({ error: 'Error interacting with the model' });
+      }
+    });
+
+
+
     if (process.env.DEV_MODE) {
       const PORT = 4628;
       try{
