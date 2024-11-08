@@ -50,6 +50,7 @@ describe("Performing the task", () => {
       .required()
       .min(1);
     const validationResult = schema.validate(taskState.submissions);
+    // console.log("validationResult", validationResult.error);
     try {
       expect(validationResult.error).toBeUndefined();
     } catch (e) {
@@ -79,6 +80,8 @@ describe("Performing the task", () => {
     const validationResult = schema.validate(
       taskState.submissions_audit_trigger,
     );
+    // console.log("trigger by", taskState.submissions_audit_trigger.trigger_by);
+    // console.log("validationResult", validationResult.error);
     try {
       expect(validationResult.error).toBeUndefined();
     } catch (e) {
@@ -175,6 +178,8 @@ describe("Performing the task", () => {
     expect(response.data).toEqual({ message: "Running", status: 200 });
   });
 });
+
+
 
 afterAll(async () => {
   _server.close();
