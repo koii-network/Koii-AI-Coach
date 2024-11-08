@@ -42,7 +42,7 @@ export function routes() {
         }
       } catch (error) {
         console.log(error);
-        res.status(500).send({ error: 'Error interacting with the model' });
+        res.status(500).send({ status: "FAILED_WITH_ERROR" });
       }
     });
 
