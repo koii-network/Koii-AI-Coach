@@ -66,17 +66,17 @@ task_type: "KPL"
 
 ## Token Mint Address (ONLY for KPL tasks) ##
 # The Fire Token address is provided as an example.
-token_type: "3kh898gitJDSb6b7MsntLqyUAvy3Y6D4PkMyGfinubht"
+token_type: "9VUq3SfNDh1bgwamF8tr9aGvuXvNi6ktjx1Edc2da7ey"
 
 ## Total Bounty Amount ##
 # The total bounty amount that will be available for distribution over all rounds.
 # Does nothing when updating a task.
-total_bounty_amount: 1000
+total_bounty_amount: 100000
 
 ## Bounty Amount per Round ##
 # The maximum amount that can be distributed per round.
 # If the actual distribution per round exceeds this amount, the distribution list will fail.
-bounty_amount_per_round: 10
+bounty_amount_per_round: 100
 
 ## Allowed Failed Distributions ##
 # Number of retries allowed for the distribution list if it is fails audit.
@@ -115,7 +115,7 @@ environment: "PRODUCTION"
 #################################### FOR UPDATING TASKS ONLY ####################################
 
 ## Old Task ID ##
-task_id: "AN1kMUFoE4KrFPeJb9T4bscnaSvsee66swu8YpsKgGe9"
+task_id: ""
 
 ## Migration Description ##
-migrationDescription: "Update for small fixes"
+migrationDescription: ""
