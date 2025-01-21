@@ -1,7 +1,7 @@
 import StreamZip from 'node-stream-zip';
 import * as tar from 'tar';
 import fs from 'fs';
-import path from 'path';
+// import path from 'path';
 
 export async function unzipFile(zipPath, extractPath) {
     try {

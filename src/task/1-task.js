@@ -4,11 +4,12 @@ import ollama from 'ollama';
 import os from 'os';
 import { uploadToIPFS } from './utils/uploadToIPFS.js';
 import path from 'path';
-import { getBasePath } from './utils/getBaseInfo.js';
+// import { getBasePath } from './utils/getBaseInfo.js';
 // import { checkDiskUsage } from './utils/checkDiskUsage.js';
 export async function task(roundNumber) {
   // Run your task and store the proofs to be submitted for auditing
   // The submission of the proofs is done in the submission function
+  console.log(`Task executing round ${roundNumber}`);
   try {
 
   

@@ -1,4 +1,4 @@
-import { app } from "@_koii/namespace-wrapper";
+// import { app } from "@_koii/namespace-wrapper";
 import os from 'os';
 import { initializeOllama as initializeOllamaWindows } from "./windows/Install.js";
 import { initializeOllama as initializeOllamaLinux } from "./linux/Install.js";

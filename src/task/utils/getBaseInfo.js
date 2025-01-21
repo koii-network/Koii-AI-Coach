@@ -42,3 +42,21 @@ export async function getAccessLink(nodeAddress){
     // For task node without http
     return `http://${nodeAddress}/task/${TASK_ID}`;
 }
+
+
+export async function getTasksLink(nodeAddress){
+    // For local testing
+    if (process.env.DEV_MODE === 'true') {
+        return `http://localhost:30017/tasks`;
+    }
+    // For node submitting a space character
+    if (!nodeAddress || !nodeAddress.includes(".")){
+        return "";
+    }
+    // For desktop node with http
+    if (nodeAddress.includes("http")){
+        return `${nodeAddress}/tasks`;
+    }
+    // For task node without http
+    return `http://${nodeAddress}/tasks`;
+}

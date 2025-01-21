@@ -1,5 +1,5 @@
 import { namespaceWrapper, TASK_ID } from "@_koii/namespace-wrapper";
-import { getAccessLink } from "./utils/getBaseInfo.js";
+import { getAccessLink, getTasksLink } from "./utils/getBaseInfo.js";
 import ollama from 'ollama';
 export async function audit(submission, roundNumber, submitterPublicKey) {
   /**
@@ -13,23 +13,58 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
   }
   console.log(`AUDIT SUBMISSION FOR ROUND ${roundNumber}`); 
   // First: Check if model is accessible
-  const IPAddressArray = await getAddressArray();
+  const IPAddressArray = await getAddressRecord();
   // const nodeAddress = undefined;
   const nodeAddress = IPAddressArray[submitterPublicKey];
   if (!nodeAddress) {
     return false;
   }
   console.log("Validating", nodeAddress);
-
+  const tasksLink = await getTasksLink(nodeAddress);
+  if (!tasksLink){
+    return false;
+  }
+  const accessibleValidationResult = await validateNetworkAccessible(tasksLink)
+  if (!accessibleValidationResult){
+    return false;
+  }
   const accessLink = await getAccessLink(nodeAddress);
-  const result = await validateModel(accessLink);
-  if (result === undefined) {
+  if (!accessLink){
+    return false;
+  }
+  
+  const modelValidationResult = await validateModel(accessLink);
+  if (modelValidationResult === undefined) {
     return;
   }
-  return result;
+  return modelValidationResult;
 }
 
-async function validateModel(accessLink){
+export async function validateNetworkAccessible(accesslink){
+  try {
+    const response = await fetch(accesslink);
+    if (!response.ok) {
+      console.log("Network not accessible");
+      return false;
+    }
+    const data = await response.json();
+    
+    const taskIds = data.map(task => task.TaskID);
+    // console.log(taskIds);
+    // console.log(TASK_ID)
+    if (taskIds.includes(TASK_ID)) {
+      console.log("TASK_ID found in the response");
+      return true;
+    } else {
+      console.log("TASK_ID not found in the response");
+      return false;
+    }
+  } catch (error) {
+    console.log("Error accessing the network", error);
+    return false;
+  }
+}
+export async function validateModel(accessLink){
   let question;
   let result;
   try{
@@ -43,6 +78,7 @@ async function validateModel(accessLink){
     console.log("Error in generating question", error);
     return;
   }
+  
   try{
     const response = await fetch(`${accessLink}/ask-query`, {
       method: 'POST',
@@ -58,19 +94,19 @@ async function validateModel(accessLink){
   }
 }
 
-async function getAddressArray() {
+export async function getAddressRecord() {
   try {
     // Get the task state from the K2
     const taskState = await namespaceWrapper.getTaskState();
     // console.log('TASK STATE', taskState);
     const nodeList = taskState.ip_address_list;
-    console.log('Node List Length During Audit', nodeList.length);
+    console.log('Node List Length During Audit', Object.keys(nodeList).length);
     return nodeList;
   } catch (e) {
     console.log('ERROR GETTING TASK STATE', e);
   }
 }
 
-async function compareString(string1, string2){
+export async function compareString(string1, string2){
   return string1 === string2;
 }
