@@ -16,7 +16,7 @@ Bring a big machine, generate the best content, and keep this task online as muc
 This is your baby AI - take care of it, and you’ll be rewarded.
 
 
-This task offers up to 10,000 $VIP per round, depending on how many views your generated content receives.
+This task offers up to 100 $VIP per round, depending on how many views your generated content receives.
 
 
 Keeping your node online and your task running will ensure your agent is paired up with top performing KOL Tasks, maximizing your earning potential.
