@@ -1,4 +1,5 @@
 import { TASK_ID } from "@_koii/namespace-wrapper";
+import { namespaceWrapper } from "@_koii/namespace-wrapper";
 export async function validateNetworkAccessible(accesslink){
     try {
       const response = await fetch(accesslink);
