@@ -1,5 +1,6 @@
 import { namespaceWrapper } from "@_koii/namespace-wrapper";
-
+import { getTasksLink } from "./utils/getBaseInfo.js";
+import { validateNetworkAccessible } from "./utils/upnpAccessible.js";
 export async function submission(roundNumber) {
   /**
    * Submit the task proofs for auditing
