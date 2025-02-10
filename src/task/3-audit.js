@@ -1,7 +1,7 @@
 import { namespaceWrapper } from "@_koii/namespace-wrapper";
 import { getAccessLink, getTasksLink } from "./utils/getBaseInfo.js";
 import ollama from 'ollama';
-import { validateNetworkAccessible } from "./utils/upnpAccessible.js";
+import { validateNetworkAccessible, getAddressRecord } from "./utils/upnpAccessible.js";
 export async function audit(submission, roundNumber, submitterPublicKey) {
   /**
    * Audit a submission
@@ -72,18 +72,7 @@ export async function validateModel(accessLink){
   }
 }
 
-export async function getAddressRecord() {
-  try {
-    // Get the task state from the K2
-    const taskState = await namespaceWrapper.getTaskState();
-    // console.log('TASK STATE', taskState);
-    const nodeList = taskState.ip_address_list;
-    console.log('Node List Length During Audit', Object.keys(nodeList).length);
-    return nodeList;
-  } catch (e) {
-    console.log('ERROR GETTING TASK STATE', e);
-  }
-}
+
 
 export async function compareString(string1, string2){
   return string1 === string2;

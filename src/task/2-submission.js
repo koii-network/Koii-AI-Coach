@@ -9,16 +9,23 @@ export async function submission(roundNumber) {
   try {
     console.log(`MAKE SUBMISSION FOR ROUND ${roundNumber}`);
     await new Promise(resolve => setTimeout(resolve, 5000));
-    const nodeKeypair = await namespaceWrapper.getSubmitterAccount();
-    const nodeAddress = nodeKeypair.publicKey.toBase58();
-    const tasksLink = await getTasksLink(nodeAddress);
-    if (!tasksLink){
+    const submitterKeypair = await namespaceWrapper.getSubmitterAccount();
+    const IPAddressArray = await getAddressRecord();
+    // const nodeAddress = undefined;
+    const nodeAddress = IPAddressArray[submitterKeypair.publicKey.toBase58()];
+    if (!nodeAddress) {
       return;
     }
+    const tasksLink = await getTasksLink(nodeAddress);
+    if (!tasksLink){  
+      return;
+    }
+    console.log("Validating", tasksLink);
     const accessibleValidationResult = await validateNetworkAccessible(tasksLink)
     if (!accessibleValidationResult){
       return;
     }
+    console.log("Accessible Validation Result", accessibleValidationResult);
     return await namespaceWrapper.storeGet("value");
   } catch (error) {
     console.error("MAKE SUBMISSION ERROR:", error);
