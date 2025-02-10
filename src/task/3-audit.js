@@ -1,4 +1,4 @@
-import { namespaceWrapper } from "@_koii/namespace-wrapper";
+// import { namespaceWrapper } from "@_koii/namespace-wrapper";
 import { getAccessLink, getTasksLink } from "./utils/getBaseInfo.js";
 import ollama from 'ollama';
 import { validateNetworkAccessible, getAddressRecord } from "./utils/upnpAccessible.js";

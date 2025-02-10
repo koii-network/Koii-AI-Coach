@@ -11,6 +11,8 @@ module.exports = {
     ecmaVersion: 15,
     sourceType: "module",
   },
-  rules: {},
+  rules: {
+    "no-unused-vars": "off",
+  },
   ignorePatterns: ["dist/", "node_modules/"],
 };

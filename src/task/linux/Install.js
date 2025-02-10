@@ -8,14 +8,14 @@ import fs from 'fs'
 import { getBasePath } from "../utils/getBaseInfo.js";
 const expectedHash = "8b746572392b6a6912bedfb5ac8115c18b77815ea4614c6cce7ccb6f67b9d929";
 let downloadURL = "https://github.com/ollama/ollama/releases/download/v0.3.14/ollama-linux-amd64.tgz";
-const ollamaBasePath = await getBasePath();
-let downloadPath = path.join(ollamaBasePath, "Ollama", "ollama.tgz");
-let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
 import { runOllama } from "../runOllama/runOllama.js";
 const serveCommand = "./bin/ollama serve";
 
 
 async function initializeOllama(){
+    const ollamaBasePath = await getBasePath();
+    let downloadPath = path.join(ollamaBasePath, "Ollama", "ollama.tgz");
+    let ollamaUnzipPath = path.join(ollamaBasePath, "Ollama");
     if (await isAccessible()){  
         console.log("Ollama is already installed");
         return true;
