@@ -112,6 +112,7 @@ tags: ["8GB RAM", "GPU Recommended", "BETA", "VIP"]
 # Production mode will expose your task to all the task runners, even if not whitelisted.
 environment: "PRODUCTION"
 
+
 #################################### FOR UPDATING TASKS ONLY ####################################
 
 ## Old Task ID ##

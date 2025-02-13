@@ -1,6 +1,6 @@
 import { namespaceWrapper } from "@_koii/namespace-wrapper";
 import { getTasksLink } from "./utils/getBaseInfo.js";
-import { validateNetworkAccessible, getAddressRecord } from "./utils/upnpAccessible.js";
+import { checkIsAccessible } from "./utils/upnpAccessible.js";
 export async function submission(roundNumber) {
   /**
    * Submit the task proofs for auditing
@@ -10,22 +10,12 @@ export async function submission(roundNumber) {
     console.log(`MAKE SUBMISSION FOR ROUND ${roundNumber}`);
     await new Promise(resolve => setTimeout(resolve, 5000));
     const submitterKeypair = await namespaceWrapper.getSubmitterAccount();
-    const IPAddressArray = await getAddressRecord();
-    // const nodeAddress = undefined;
-    const nodeAddress = IPAddressArray[submitterKeypair.publicKey.toBase58()];
-    if (!nodeAddress) {
-      return;
-    }
-    const tasksLink = await getTasksLink(nodeAddress);
-    if (!tasksLink){  
-      return;
-    }
-    console.log("Validating", tasksLink);
-    const accessibleValidationResult = await validateNetworkAccessible(tasksLink)
-    if (!accessibleValidationResult){
-      return;
-    }
-    console.log("Accessible Validation Result", accessibleValidationResult);
+
+    const submitterPublicKey = submitterKeypair.publicKey.toBase58();
+    // const result = await checkIsAccessible(submitterPublicKey);
+    // if(!result){
+    //   return;
+    // }
     return await namespaceWrapper.storeGet("value");
   } catch (error) {
     console.error("MAKE SUBMISSION ERROR:", error);
