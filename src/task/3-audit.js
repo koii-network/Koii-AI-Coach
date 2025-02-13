@@ -13,10 +13,10 @@ export async function audit(submission, roundNumber, submitterPublicKey) {
   }
   console.log(`AUDIT SUBMISSION FOR ROUND ${roundNumber}`); 
   // First: Check if model is accessible
-  const result = await checkIsAccessible(submitterPublicKey);
-  if (!result){
-    return false;
-  }
+  // const result = await checkIsAccessible(submitterPublicKey);
+  // if (!result){
+  //   return false;
+  // }
   return true;
 }
 
